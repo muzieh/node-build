@@ -6,7 +6,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/weather', (req, res) => {
-  res.send('sunny');
+  res.send('sunny++');
 });
 
 const port = process.env.PORT || 8080;
