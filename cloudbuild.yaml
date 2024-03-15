@@ -1,5 +1,5 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/muzieh-firecast/firecast/node-build', '.' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/muzieh-firecast/muzieh-firecast-repo/node-build:tag1', '.' ]
 images:
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/muzieh-firecast-repo/node-build:latest'
+  - 'us-central1-docker.pkg.dev/muzieh-firecast/muzieh-firecast-repo/node-build:tag1'
