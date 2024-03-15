@@ -3,3 +3,7 @@ steps:
     args: [ 'build', '-t', 'us-central1-docker.pkg.dev/muzieh-firecast/muzieh-firecast-repo/node-build:tag1', '.' ]
 images:
   - 'us-central1-docker.pkg.dev/muzieh-firecast/muzieh-firecast-repo/node-build:tag1'
+steps:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    script: |
+      gcloud run deploy firecast-api --image us-central1-docker.pkg.dev/muzieh-firecast/muzieh-firecast-repo/node-build:tag1 --region us-central1 --platform managed --allow-unauthenticated
