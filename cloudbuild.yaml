@@ -14,5 +14,12 @@ steps:
     args: ['bash', '-c', 'echo "${_REVISION}:tag1"']
   - name: 'gcr.io/cloud-builders/gcloud'
     waitFor: ['push-app-image']
-    script: |
-      gcloud run deploy firecast-api --image '${_IMAGE_NAME}:tag1' --region us-central1 --platform managed --allow-unauthenticated
+    entrypoint: 'bash'
+    args: 
+      - '-c'
+      - >
+        gcloud run deploy firecast-api 
+        '--image=${_IMAGE_NAME}:tag1'
+        '--region=us-central1'
+        '--platform=managed'
+        '--allow-unauthenticated'
