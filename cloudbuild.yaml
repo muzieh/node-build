@@ -15,4 +15,4 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     waitFor: ['push-app-image']
     script: |
-      gcloud run deploy firecast-api --image ${_IMAGE_NAME}:tag1 --region us-central1 --platform managed --allow-unauthenticated
+      gcloud run deploy firecast-api --image '${_IMAGE_NAME}:tag1' --region us-central1 --platform managed --allow-unauthenticated
