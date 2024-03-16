@@ -7,7 +7,7 @@ steps:
     waitFor: ['build-app-image']
     args: ['push', 'us-central1-docker.pkg.dev/muzieh-firecast/muzieh-firecast-repo/node-build:tag1']
   - name: 'ubuntu'
-    args: ['bash', '-c', 'echo "test message"'
+    args: ['bash', '-c', 'echo "test message"']
   - name: 'gcr.io/cloud-builders/gcloud'
     waitFor: ['push-app-image']
     script: |
