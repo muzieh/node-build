@@ -1,17 +1,18 @@
 substitutions:
   _REVISION: ${_VERSION}-${SHORT_SHA}
+  _IMAGE_NAME: 'us-central1-docker.pkg.dev/muzieh-firecast/muzieh-firecast-repo/node-build'
   
 steps:
   - id: 'build-app-image'
     name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/muzieh-firecast/muzieh-firecast-repo/node-build:tag1', '.' ]
+    args: [ 'build', '-t', '${_IMAGE_NAME}:tag1', '.' ]
   - id: 'push-app-image'
     name: 'gcr.io/cloud-builders/docker'
     waitFor: ['build-app-image']
-    args: ['push', 'us-central1-docker.pkg.dev/muzieh-firecast/muzieh-firecast-repo/node-build:tag1']
+    args: ['push', '${_IMAGE_NAME}']
   - name: 'ubuntu'
-    args: ['bash', '-c', 'echo "${_REVISION}"']
+    args: ['bash', '-c', 'echo "${_REVISION}:tag1"']
   - name: 'gcr.io/cloud-builders/gcloud'
     waitFor: ['push-app-image']
     script: |
-      gcloud run deploy firecast-api --image us-central1-docker.pkg.dev/muzieh-firecast/muzieh-firecast-repo/node-build:tag1 --region us-central1 --platform managed --allow-unauthenticated
+      gcloud run deploy firecast-api --image ${_IMAGE_NAME}:tag1 --region us-central1 --platform managed --allow-unauthenticated
