@@ -5,13 +5,13 @@ substitutions:
 steps:
   - id: 'build-app-image'
     name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', '${_IMAGE_NAME}:tag1', '.' ]
+    args: [ 'build', '-t', '${_IMAGE_NAME}:${COMMIT_SHA}', '.' ]
   - id: 'push-app-image'
     name: 'gcr.io/cloud-builders/docker'
     waitFor: ['build-app-image']
-    args: ['push', '${_IMAGE_NAME}:tag1']
+    args: ['push', '${_IMAGE_NAME}:${COMMIT_SHA}']
   - name: 'ubuntu'
-    args: ['bash', '-c', 'echo "${_REVISION}:tag1"']
+    args: ['bash', '-c', 'echo "${_REVISION}:${COMMIT_SHA}"']
   - name: 'gcr.io/cloud-builders/gcloud'
     waitFor: ['push-app-image']
     entrypoint: 'bash'
@@ -19,7 +19,8 @@ steps:
       - '-c'
       - >
         gcloud run deploy firecast-api 
-        '--image=${_IMAGE_NAME}:tag1'
+        '--image=${_IMAGE_NAME}:${COMMIT_SHA}'
         '--region=us-central1'
         '--platform=managed'
         '--allow-unauthenticated'
+        '--tag=${_REVISION}'
