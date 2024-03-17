@@ -13,7 +13,7 @@ steps:
   # - name: 'ubuntu'
   #   args: ['bash', '-c', 'echo "${_REVISION}"']
   - name: 'gcr.io/cloud-builders/gcloud'
-    waitFor: ['push-app-image']
+    #waitFor: ['push-app-image']
     entrypoint: 'bash'
     args: 
       - '-c'
