@@ -19,6 +19,7 @@ steps:
       - '${_IMAGE_NAME}:latest'
       - '.' 
 
+
   - id: 'push-app-image'
     name: 'gcr.io/cloud-builders/docker'
     #waitFor: ['build-app-image']
