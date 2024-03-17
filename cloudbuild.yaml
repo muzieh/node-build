@@ -3,15 +3,28 @@ substitutions:
   _IMAGE_NAME: 'us-central1-docker.pkg.dev/muzieh-firecast/muzieh-firecast-repo/node-build'
   
 steps:
+  - id: 'pull-image-cache'
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['pull', '${_IMAGE_NAME}:latest']
+    allowFailiure: true
   - id: 'build-app-image'
     name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', '${_IMAGE_NAME}:${COMMIT_SHA}', '.' ]
-  #- id: 'push-app-image'
-  #  name: 'gcr.io/cloud-builders/docker'
-  #  waitFor: ['build-app-image']
-  #  args: ['push', '${_IMAGE_NAME}:${COMMIT_SHA}']
-  # - name: 'ubuntu'
-  #   args: ['bash', '-c', 'echo "${_REVISION}"']
+    args: 
+      -'build'
+      - '-t'
+      - '${_IMAGE_NAME}:${COMMIT_SHA}'
+      - '-t'
+      - '${_IMAGE_NAME}:latest'
+      - '--cache-from'
+      - '${_IMAGE_NAME}:latest'
+      - '.' 
+
+  - id: 'push-app-image'
+    name: 'gcr.io/cloud-builders/docker'
+    #waitFor: ['build-app-image']
+    args: ['push', '${_IMAGE_NAME}:${COMMIT_SHA}']
+ # - name: 'ubuntu'
+ #    args: ['bash', '-c', 'echo "${_REVISION}"']
   - name: 'gcr.io/cloud-builders/gcloud'
     #waitFor: ['push-app-image']
     entrypoint: 'bash'
