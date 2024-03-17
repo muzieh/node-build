@@ -26,7 +26,7 @@ steps:
   - id: 'tag-image-as-latest'
     name: 'gcr.io/cloud-builders/docker'
     #waitFor: ['build-app-image']
-    args: ['tag', '${_IMAGE_NAME}' '${_IMAGE_NAME}:latest']  
+    args: ['tag', '${_IMAGE_NAME}', '${_IMAGE_NAME}:latest']  
  # - name: 'ubuntu'
  #    args: ['bash', '-c', 'echo "${_REVISION}"']
   - name: 'gcr.io/cloud-builders/gcloud'
