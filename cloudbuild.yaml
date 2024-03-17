@@ -10,7 +10,7 @@ steps:
   - id: 'build-app-image'
     name: 'gcr.io/cloud-builders/docker'
     args: 
-      -'build'
+      - 'build'
       - '-t'
       - '${_IMAGE_NAME}:${COMMIT_SHA}'
       - '-t'
