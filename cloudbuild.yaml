@@ -22,7 +22,11 @@ steps:
   - id: 'push-app-image'
     name: 'gcr.io/cloud-builders/docker'
     #waitFor: ['build-app-image']
-    args: ['push', '${_IMAGE_NAME}:${COMMIT_SHA}', '--all-tags']
+    args: ['push', '${_IMAGE_NAME}:${COMMIT_SHA}']
+  - id: 'tag-image-as-latest'
+    name: 'gcr.io/cloud-builders/docker'
+    #waitFor: ['build-app-image']
+    args: ['tag', '${_IMAGE_NAME}' '${_IMAGE_NAME}:latest']  
  # - name: 'ubuntu'
  #    args: ['bash', '-c', 'echo "${_REVISION}"']
   - name: 'gcr.io/cloud-builders/gcloud'
