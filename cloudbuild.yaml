@@ -6,7 +6,7 @@ steps:
   - id: 'pull-image-cache'
     name: 'gcr.io/cloud-builders/docker'
     args: ['pull', '${_IMAGE_NAME}:latest']
-    allowFailiure: true
+    allowFailure: true
   - id: 'build-app-image'
     name: 'gcr.io/cloud-builders/docker'
     args: 
