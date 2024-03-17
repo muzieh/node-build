@@ -10,8 +10,8 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     waitFor: ['build-app-image']
     args: ['push', '${_IMAGE_NAME}:${COMMIT_SHA}']
-  - name: 'ubuntu'
-    args: ['bash', '-c', 'echo "${_REVISION}:${COMMIT_SHA}"']
+  # - name: 'ubuntu'
+  #   args: ['bash', '-c', 'echo "${_REVISION}"']
   - name: 'gcr.io/cloud-builders/gcloud'
     waitFor: ['push-app-image']
     entrypoint: 'bash'
@@ -24,3 +24,5 @@ steps:
         '--platform=managed'
         '--allow-unauthenticated'
         '--tag=${_REVISION}'
+options:
+  machineType: E2_MEDIUM
