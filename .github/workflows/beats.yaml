@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is  learning
 on: [push]
 jobs:
   check-beats-version:
-    run-on: ubuntu-latests
+    runs-on: ubuntu-latests
     steps:
       - uses: actions/checkout@4
       - uses: actions/setup-node@4
